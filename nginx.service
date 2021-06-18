@@ -1,0 +1,21 @@
+
+[Unit]
+Description=Run nginx with RTMP module
+After=syslog.target network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+User=root
+TimeoutStartSec=0
+Type=forking
+PIDFile=$NGINX_HOME/logs/nginx.pid
+ExecStartPre=$NGINX_HOME/sbin/nginx -t
+ExecStart=$NGINX_HOME/sbin/nginx
+ExecReload=$NGINX_HOME/sbin/nginx -s reload
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
