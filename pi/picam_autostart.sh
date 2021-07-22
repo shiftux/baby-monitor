@@ -8,7 +8,6 @@ AUDIO_CHANNELS=1
 
 # script vars
 SOUNDCARD="USB-Audio"
-ALSA_HW="1"
 PICAM_DIR=/opt/picam
 proc=123
 
@@ -38,9 +37,10 @@ check_function () { # $1:CHECK_NAME, $2:ITERATIONS, $3:SLEEP_TIME
 echo "############# $(date) #############"
 
 ######### checks #########
-# check if soundcard is present and has device number 1
-if [ "$(grep $SOUNDCARD /proc/asound/cards | awk '{print $1}')" -eq "$ALSA_HW" ]; then
+# check if soundcard is present and find its device number
+if [ "$(grep $SOUNDCARD /proc/asound/cards)" ]; then
     echo "soundcard found"
+    ALSA_HW="$(grep $SOUNDCARD /proc/asound/cards | awk '{print $1}')"
 else
     echo "ERROR: soundcard not detected"
     exit 1
