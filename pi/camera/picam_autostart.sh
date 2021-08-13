@@ -5,6 +5,7 @@ HEIGHT=365
 BITRATE=500000
 FPS=20
 AUDIO_CHANNELS=1
+AUIDO_AMPLIFICATION=2
 
 # script vars
 SOUNDCARD="USB-Audio"
@@ -84,7 +85,8 @@ sleep 5
 
 ######### start picam #########
 i=0
-START_COMMAND="$PICAM_DIR/picam --tcpout tcp://127.0.0.1:8181 --alsadev hw:$ALSA_HW,0 -w $WIDTH -h $HEIGHT -v $BITRATE -f $FPS -c $AUDIO_CHANNELS &"
+START_COMMAND="$PICAM_DIR/picam --tcpout tcp://127.0.0.1:8181 --alsadev hw:$ALSA_HW,0 -w $WIDTH -h $HEIGHT -v $BITRATE \
+    -f $FPS -c $AUDIO_CHANNELS --volume $AUIDO_AMPLIFICATION --time --timeformat \"%H:%M:%S  \" -- timelayout bottom,left &"
 while [ $i -le 5 ]; do
     eval "$START_COMMAND"
     proc=$!
