@@ -30,7 +30,7 @@ check_function () { # $1:CHECK_NAME, $2:ITERATIONS, $3:SLEEP_TIME
             exit 1
         fi
         sleep "$3"
-        (( i++ ))
+        ((i++))
     done
 }
 
