@@ -103,7 +103,7 @@ while [ $i -le 5 ]; do
         exit 1
     fi
     sleep 5
-    (( i++ ))
+    ((i++))
 done
 
 ######### make sure stunnel is connected #########
@@ -111,3 +111,6 @@ CHECK_COMMAND="tail -n 12 /var/log/stunnel4/stunnel.log | grep \"Session id\" ||
 START_COMMAND="true"
 COMMAND_IF_CHECK_FAILED="kill -15 $proc"
 check_function "stunnel4_connection" 3 5
+
+######### start subtitle routine #########
+/bin/bash ./print_subtitle.sh
